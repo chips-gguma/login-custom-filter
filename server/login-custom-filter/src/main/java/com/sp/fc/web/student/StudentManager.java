@@ -21,9 +21,9 @@ public class StudentManager implements AuthenticationProvider, InitializingBean 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         // Authentication 토큰을 StudentAuthentication 토큰으로 발행하기 위해 형변환
-        UsernamePasswordAuthenticationToken token = (UsernamePasswordAuthenticationToken) authentication;
-        if(studentDB.containsKey(token.getName())) {    // ex) hong이라는 id의 사용자가 온다면 student를 담은 StudentAuthentication 인증 토큰(통행증)을 발행함
-            Student student = studentDB.get(token.getName());
+        StudentAuthenticationToken token = (StudentAuthenticationToken) authentication;
+        if(studentDB.containsKey(token.getCredentials())) {    // ex) hong이라는 id의 사용자가 온다면 student를 담은 StudentAuthentication 인증 토큰(통행증)을 발행함
+            Student student = studentDB.get(token.getCredentials());
             return StudentAuthenticationToken.builder()
                     .principal(student)
                     .details(student.getUser_name())
@@ -37,7 +37,8 @@ public class StudentManager implements AuthenticationProvider, InitializingBean 
     @Override
     public boolean supports(Class<?> authentication) {
         // UsernamePasswordAuthenticationToken 형태로 토큰을 받으면 검증을 해주는 provider로 동작을 하겠다.
-        return authentication == UsernamePasswordAuthenticationToken.class;
+//        return authentication == UsernamePasswordAuthenticationToken.class;
+        return authentication == StudentAuthenticationToken.class;
     }
 
     @Override

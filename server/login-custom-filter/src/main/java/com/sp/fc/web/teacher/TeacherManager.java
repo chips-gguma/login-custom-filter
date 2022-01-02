@@ -23,9 +23,10 @@ public class TeacherManager implements AuthenticationProvider, InitializingBean 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         // Authentication 토큰을 StudentAuthentication 토큰으로 발행하기 위해 형변환
-        UsernamePasswordAuthenticationToken token = (UsernamePasswordAuthenticationToken) authentication;
-        if(teacherDB.containsKey(token.getName())) {    // ex) hong이라는 id의 사용자가 온다면 student를 담은 StudentAuthentication 인증 토큰(통행증)을 발행함
-            Teacher teacher = teacherDB.get(token.getName());
+//        UsernamePasswordAuthenticationToken token = (UsernamePasswordAuthenticationToken) authentication;
+        TeacherAuthenticationToken token = (TeacherAuthenticationToken) authentication;
+        if(teacherDB.containsKey(token.getCredentials())) {    // ex) hong이라는 id의 사용자가 온다면 student를 담은 StudentAuthentication 인증 토큰(통행증)을 발행함
+            Teacher teacher = teacherDB.get(token.getCredentials());
             return TeacherAuthenticationToken.builder()
                     .principal(teacher)
                     .details(teacher.getUser_name())
