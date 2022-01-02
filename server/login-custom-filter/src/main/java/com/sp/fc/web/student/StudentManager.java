@@ -44,9 +44,9 @@ public class StudentManager implements AuthenticationProvider, InitializingBean 
     public void afterPropertiesSet() throws Exception {
 
         Set.of(
-                new Student("hong", " 홍길동", Set.of(new SimpleGrantedAuthority("ROLE_USER"))),
-                new Student("kang", " 강아지", Set.of(new SimpleGrantedAuthority("ROLE_USER"))),
-                new Student("range", " 호랑이", Set.of(new SimpleGrantedAuthority("ROLE_USER")))
+                new Student("hong", " 홍길동", Set.of(new SimpleGrantedAuthority("ROLE_STUDENT"))),
+                new Student("kang", " 강아지", Set.of(new SimpleGrantedAuthority("ROLE_STUDENT"))),
+                new Student("range", " 호랑이", Set.of(new SimpleGrantedAuthority("ROLE_STUDENT")))
         ).forEach(s->   // 빈이 초기화될 때마다
                         studentDB.put(s.getId(), s)
                 );

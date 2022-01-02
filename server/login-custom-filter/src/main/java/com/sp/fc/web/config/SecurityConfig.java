@@ -40,7 +40,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin(
                         login->login.loginPage("/login")
                                 .permitAll()
+                                .defaultSuccessUrl("/", false)
+                                .failureUrl("/login-error")
                 )
+                .logout(logout-> logout.logoutSuccessUrl("/"))
+                .exceptionHandling(e->e.accessDeniedPage("/access-denied"))
                 ;
     }
 
