@@ -4,12 +4,14 @@ import com.sp.fc.web.student.StudentManager;
 import com.sp.fc.web.teacher.TeacherManager;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 @EnableWebSecurity(debug = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true) // 선생이 학생 페이지로 접근하지 못하도록 함
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final StudentManager studentManager;
